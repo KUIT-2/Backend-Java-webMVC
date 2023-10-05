@@ -54,10 +54,13 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
-                <th class="col-md-3"><a href="updateform.jsp" class="btn btn-success" role="button">수정</a></th>
+                <th class="col-md-3"><a href="/user/updateform?username=<%= user.getUserId() %>" class="btn btn-success" role="button">수정</a></th>
             </tr>
             <%
                 }
+
+
+
             %>
             </tbody>
         </table>

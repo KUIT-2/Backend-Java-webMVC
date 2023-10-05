@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/list")
-public class ListUserController extends HttpServlet {
-    @Override
+@WebServlet("/user/updateform")
+public class UpdateUserFormController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("실행");
-        req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
-        RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
-        rd.forward(req,resp);
+        String name = req.getParameter("username");
+        req.setAttribute("user", MemoryUserRepository.getInstance().findUserById(name));
+        RequestDispatcher rd = req.getRequestDispatcher("/user/updateform.jsp");
+        rd.forward(req, resp);
     }
 }
+
