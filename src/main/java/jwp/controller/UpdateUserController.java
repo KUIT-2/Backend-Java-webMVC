@@ -1,6 +1,8 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import jwp.controller.enums.Parameters;
+import jwp.controller.enums.RequestURL;
 import jwp.model.User;
 
 import javax.servlet.ServletException;
@@ -15,15 +17,14 @@ public class UpdateUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        User changedUser = new User(
-                req.getParameter("userId"),
-                req.getParameter("password"),
-                req.getParameter("name"),
-                req.getParameter("email")
-        );
+        User changedUser = new User(req.getParameter(Parameters.USER_ID.getValue()),
+                req.getParameter(Parameters.PASSWORD.getValue()),
+                req.getParameter(Parameters.NAME.getValue()),
+                req.getParameter(Parameters.EMAIL.getValue()));
+
 
         MemoryUserRepository.getInstance().changeUserInfo(changedUser);
-        resp.sendRedirect("/user/list");
+        resp.sendRedirect(RequestURL.USER_LIST.getUrl());
 
     }
 }
