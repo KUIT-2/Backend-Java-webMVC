@@ -18,7 +18,14 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/home.jsp" class="nav-link px-2 link-secondary">Q&A</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-          <li><a href="/user/list" class="nav-link px-2 link-dark">User List</a></li>
+          <c:choose>
+          <c:when test="${not empty sessionScope.user}">
+            <li><a href="/user/list" class="nav-link px-2 link-dark">User List</a></li>
+          </c:when>
+          <c:otherwise>
+            <li><a href="/" class="nav-link px-2 link-dark">User List</a></li>
+          </c:otherwise>
+          </c:choose>
           <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
         </ul>
   
