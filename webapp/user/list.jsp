@@ -32,7 +32,11 @@
             </th>
             <th class="col-md-3"><%= user.getEmail() %>
             </th>
-            <th class="col-md-3"><a href="#" class="btn btn-success" role="button">수정</a></th>
+            <%--     요구사항 3: 회원 정보 수정 기능       --%>
+            <%
+                String userQueryLink = "updateForm?userId=" + user.getUserId();
+            %>
+            <th class="col-md-3"><a href="<%= userQueryLink %>" class="btn btn-success" role="button">수정</a></th>
         </tr>
         <%
             }
