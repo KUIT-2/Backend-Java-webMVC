@@ -52,8 +52,8 @@
         </ul>
 
         <div class="col-md-3 text-end">
-            <a href="/user/login.html" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/user/form.html" type="button" class="btn btn-primary">Sign-up</a>
+            <a href="/user/login" type="button" class="btn btn-outline-primary me-2">Login</a>
+            <a href="/user/form" type="button" class="btn btn-primary">Sign-up</a>
         </div>
     </header>
 
@@ -71,6 +71,7 @@
             <tbody>
             <%
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
+                String myId = (String) session.getAttribute("myId");
                 for (User user : users) {
             %>
             <tr>
@@ -80,9 +81,19 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
-                <th class="col-md-3"><a href="#" class="btn btn-success" role="button">수정</a></th>
+
+                <%
+                if(myId == user.getUserId()){
+
+                %>
+                <th class="col-md-3"><a href="/user/updateForm?userId=<%= user.getUserId() %>" class="btn btn-success" role="button">수정</a></th>
+                <%
+                }
+                %>
+
             </tr>
             <%
+
                 }
             %>
             </tbody>
