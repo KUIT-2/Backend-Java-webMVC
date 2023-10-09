@@ -13,8 +13,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/logout")
-public class LogoutUserController extends HttpServlet {
+public class LogoutUserController extends HttpServlet implements Controller{
 
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    //세션 없애고 home으로 redirect
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();

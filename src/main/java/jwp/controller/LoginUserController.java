@@ -1,6 +1,7 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import jwp.http.HttpMethod;
 import jwp.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,17 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/login")
-public class LoginUserController extends HttpServlet {
+public class LoginUserController extends HttpServlet implements Controller{
+
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getMethod().equals(HttpMethod.GET)) {
+            doGet(request, response);
+        }
+        if (request.getMethod().equals(HttpMethod.POST)) {
+            doPost(request, response);
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
