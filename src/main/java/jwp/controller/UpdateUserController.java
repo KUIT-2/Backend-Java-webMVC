@@ -22,6 +22,7 @@ public class UpdateUserController extends HttpServlet {
                 req.getParameter("name"),
                 req.getParameter("email"));
         user.update(updateUser);
+        MemoryUserRepository.getInstance().changeUserInfo(user);
 
         resp.sendRedirect("/user/list");
     }
