@@ -11,23 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/updateForm")
-public class UpdateUserFormController extends HttpServlet {
+//@WebServlet("/user/updateForm")
+public class UpdateUserFormController extends HttpServlet implements Controller {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("updateformcon: " + req.getParameter("userId"));
 
         User user = MemoryUserRepository.getInstance().findUserById(req.getParameter("userId"));
-        req.setAttribute("users", user);
-        System.out.println("print: "+ user.getUserId());
+        //req.setAttribute("myuser", user);
+        System.out.println("print: " + user.getUserId());
 
         RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        User user = new User(req.getParameter("userId"),
 //                req.getParameter("password"),
 //                req.getParameter("name"),
@@ -35,7 +35,7 @@ public class UpdateUserFormController extends HttpServlet {
 //
 //        MemoryUserRepository.getInstance().changeUserInfo(user);
 //
-//        System.out.println("updatecon");
+//
 //        resp.sendRedirect("/user/list");
-//    }
+    }
 }

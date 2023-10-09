@@ -21,8 +21,16 @@
         </ul>
 
         <div class="col-md-3 text-end">
-          <a href="/user/login" type="button" class="btn btn-outline-primary me-2">Login</a>
-          <a href="/user/form" type="button" class="btn btn-primary">Sign-up</a>
+          <c:choose>
+          <c:when test="${not empty sessionScope.user}">
+          	<a href="/user/logout" role="button" class="btn btn-outline-primary me-2">Log-Out</a>
+          	<a href="/user/updateForm?userId=${sessionScope.user.userId}" role="button" class="btn btn-primary" >개인정보수정</a>
+          </c:when>
+          <c:otherwise>
+          	<a href="/user/login" type="button" class="btn btn-outline-primary me-2">Log-In</a>
+          	<a href="/user/signup" type="button" class="btn btn-primary">Sign-up</a>
+          </c:otherwise>
+          </c:choose>
         </div>
       </header>
     </div>
@@ -34,7 +42,7 @@
           <form name="sign-up" method="post" action="/user/update">
             <div class="form-floating">
 
-              <input type="text" class="form-control" value="${users.userId}" id="userId" name="userId" placeholder="Id" readonly>
+              <input type="text" class="form-control" value="${user.userId}" id="userId" name="userId" placeholder="Id" readonly>
               <label for="userId">UserId 변경 불가</label>
             </div>
             <div class="form-floating">

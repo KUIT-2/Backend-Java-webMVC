@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/user/login_failed")
-public class LoginFailedController extends HttpServlet {
+//@WebServlet("/user/login_failed")
+public class LoginFailedController extends HttpServlet implements Controller{
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher rd = req.getRequestDispatcher("/user/login_failed.jsp");
         rd.forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //name 태그로 넣어야됨!
         User user = MemoryUserRepository.getInstance().findUserById(req.getParameter("userId"));
         System.out.println(user);

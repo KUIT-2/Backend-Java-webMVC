@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/signup")
-public class CreateUserController extends HttpServlet {
+//@WebServlet("/user/signup")
+public class CreateUserController extends HttpServlet implements Controller{
 
     //폼 보여주기 get 추가
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher rd = req.getRequestDispatcher("/user/form.jsp");
         rd.forward(req,resp);
     }
 
 
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User(req.getParameter("userId"),
                 req.getParameter("password"),
                 req.getParameter("name"),
@@ -32,4 +33,6 @@ public class CreateUserController extends HttpServlet {
         MemoryUserRepository.getInstance().addUser(user);
         resp.sendRedirect("/user/list");
     }
+
+
 }

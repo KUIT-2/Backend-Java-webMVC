@@ -28,7 +28,7 @@
 </c:when>
 <c:otherwise>
 	<a href="/user/login" type="button" class="btn btn-outline-primary me-2">Log-In</a>
-	<a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+	<a href="/user/signup" type="button" class="btn btn-primary">Sign-up</a>
 </c:otherwise>
 </c:choose>
 
