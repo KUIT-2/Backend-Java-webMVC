@@ -28,12 +28,14 @@
 
     <div class="container" id="main">
 
-        <main class="form-signin">
+        <main class="form-update">
 
-          <form name="sign-up" method="post" action="/user/signup">
+<% String userId = request.getParameter("userId"); %>
+
+          <form name="update-user" method="post" action="/user/update">
             <div class="form-floating">
-              <input type="text" class="form-control" id="userId" name="userId" placeholder="Id">
-              <label for="userId">User Id</label>
+              <input type="text" class="form-control" id="userId" name="userId" placeholder="Id" readonly value="<%= userId %>">
+              <label for="userId">User Id (Id는 변경 불가)</label>
             </div>
             <div class="form-floating">
               <input type="password" class="form-control" id="password" name="password" placeholder="Password">
@@ -49,7 +51,7 @@
             </div>
             <div style="height:10px;">
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">수정</button>
           </form>
         </main>
     </div>
