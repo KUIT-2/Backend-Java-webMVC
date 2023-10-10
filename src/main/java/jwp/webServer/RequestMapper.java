@@ -22,12 +22,14 @@ public class RequestMapper {
         this.request = request;
         this.response = response;
         controller = controllers.get(request.getRequestURI());
+        System.out.println("controller = " + controller);
     }
 
     private void initController() {
         controllers.put(RequestURL.HOME.getUrl(), new HomeController());
         controllers.put(RequestURL.USER_SIGNUP.getUrl(),new CreateUserController());
-        controllers.put(RequestURL.USER_LOGIN.getUrl(), new ListUserController());
+        controllers.put(RequestURL.USER_LOGIN.getUrl(), new LoginUserController());
+        controllers.put(RequestURL.USER_LIST.getUrl(), new ListUserController());
         controllers.put(RequestURL.USER_LOGOUT.getUrl(), new LogoutUserController());
         controllers.put(RequestURL.USER_UPDATE.getUrl(), new UpdateUserController());
     }

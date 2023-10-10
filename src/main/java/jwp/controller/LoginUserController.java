@@ -13,22 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/user/login")
 public class LoginUserController extends HttpServlet implements Controller{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getMethod().equals(HttpMethod.GET)) {
+        if (HttpMethod.GET.isEqual(request.getMethod())) {
             doGet(request, response);
         }
-        if (request.getMethod().equals(HttpMethod.POST)) {
+        if (HttpMethod.POST.isEqual(request.getMethod())) {
             doPost(request, response);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/user/login.jsp");
         rd.forward(req,resp);
     }
 

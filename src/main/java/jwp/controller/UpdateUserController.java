@@ -13,15 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/user/update")
 public class UpdateUserController extends HttpServlet implements Controller{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getMethod().equals(HttpMethod.GET)) {
+        if (HttpMethod.GET.isEqual(request.getMethod())) {
             doGet(request, response);
         }
-        if (request.getMethod().equals(HttpMethod.POST)) {
+        if (HttpMethod.POST.isEqual(request.getMethod())) {
             doPost(request, response);
         }
     }

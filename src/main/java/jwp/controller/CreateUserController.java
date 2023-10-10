@@ -12,15 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/signup")
 public class CreateUserController extends HttpServlet implements Controller{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getMethod().equals(HttpMethod.GET)) {
+        if (HttpMethod.GET.isEqual(request.getMethod())) {
             doGet(request, response);
         }
-        if (request.getMethod().equals(HttpMethod.POST)) {
+        if (HttpMethod.POST.isEqual(request.getMethod())) {
             doPost(request, response);
         }
     }
