@@ -20,8 +20,7 @@
         </ul>
 
         <div class="col-md-3 text-end">
-          <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>
-          <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+            <a href="/user/logout" type="button" class="btn btn-outline-primary me-2">Logout</a>
         </div>
       </header>
     </div>
