@@ -6,6 +6,7 @@
   <%@ include file="/include/head.jspf" %>
   <body>
     <%@ include file="/include/navigation.jspf" %>
+
     <div class="navbar-default">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
@@ -18,11 +19,18 @@
           <li><a href="/user/userList" class="nav-link px-2 link-dark">User List</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
         </ul>
-  
-        <div class="col-md-3 text-end">
-          <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>
-          <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
-        </div>
+
+            <c:choose>
+                <c:when test="${not empty sessionScope.user}">
+                    <a href="/user/logout" role="button" class="btn btn-outline-primary me-2">Log-Out</a>
+                    <a href="/user/updateForm?userId=${sessionScope.user.userId}" role="button" class="btn btn-primary" >개인정보수정</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Log-In</a>
+                    <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+                </c:otherwise>
+            </c:choose>
+
       </header>
     </div>
     <div class="container" id="main">

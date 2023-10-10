@@ -3,7 +3,7 @@
 
 <!doctype html>
 <html lang="ko">
-  <% include file="/include/head.jsdf" %>
+  <%@ include file="/include/head.jspf" %>
   <body>
     <%@ include file="/include/navigation.jspf" %>
     <div class="navbar-default">
