@@ -22,7 +22,6 @@ public class RequestMapper {
         this.request = request;
         this.response = response;
         controller = controllers.get(request.getRequestURI());
-        System.out.println("controller = " + controller);
     }
 
     private void initController() {
@@ -34,11 +33,12 @@ public class RequestMapper {
         controllers.put(RequestURL.USER_UPDATE.getUrl(), new UpdateUserController());
     }
 
-    public void proceed() throws IOException, ServletException {
+    public String proceed(){
         if (controller != null) {
-            controller.execute(request, response);
-            return;
+            String url = controller.execute(request, response);
+            return url;
         }
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        return null;
     }
 }

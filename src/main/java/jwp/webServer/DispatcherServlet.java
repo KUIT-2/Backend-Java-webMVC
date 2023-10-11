@@ -1,5 +1,6 @@
 package jwp.webServer;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,14 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestMapper requestMapper = new RequestMapper(req, resp);
-        requestMapper.proceed();
+        String url = requestMapper.proceed();
+        if (url.startsWith("redirect")) {
+            String[] redirectUrl = url.split(":");
+            resp.sendRedirect(redirectUrl[1]);
+        }
+        else{
+            RequestDispatcher rd = req.getRequestDispatcher(url + ".jsp");
+            rd.forward(req,resp);
+        }
     }
 }
