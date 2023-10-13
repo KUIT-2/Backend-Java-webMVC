@@ -48,7 +48,9 @@
             </div>
             <div style="height:10px;">
             </div>
+
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+
           </form>
         </main>
     </div>
