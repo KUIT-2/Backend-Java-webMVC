@@ -15,25 +15,21 @@ import java.io.IOException;
 public class UpdateUserFormController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String userId = "1";
-        String[] queryString = req.getQueryString().split("&");
-        for (String query : queryString) {
-            String[] input = query.split("=");
-            if(input[0].equals("userId")) {
-                userId = input[1];
-            }
-        }
-
-        User user = MemoryUserRepository.getInstance().findUserById(userId);
-
+        final String userId = req.getParameter("userId");
+        final User user = MemoryUserRepository.getInstance().findUserById(userId);
 
         req.setAttribute("user", user);
         RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
         rd.forward(req,resp);
     }
 
-    /*System.out.println(req.getQueryString());
-        System.out.println(req.isRequestedSessionIdFromCookie());
-        System.out.println(req.getCookies());*/
+    /*  이전에 좀 더 어렵게 작성한 코드
+    String[] queryString = req.getQueryString().split("&");
+    for (String query : queryString) {
+        String[] input = query.split("=");
+            if(input[0].equals("userId")) {
+                userId = input[1];
+            }
+        }
+    */
 }
