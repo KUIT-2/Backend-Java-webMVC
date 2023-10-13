@@ -80,7 +80,7 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
-                <th class="col-md-3"><a href="/user/update.jsp" class="btn btn-success" role="button">수정</a></th>
+                <th class="col-md-3"><a href="/user/update.jsp?userId=<%=user.getUserId()%>" class="btn btn-success" role="button">수정</a></th>
             </tr>
             <%
                 }

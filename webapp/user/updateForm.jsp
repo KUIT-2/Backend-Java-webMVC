@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/include/navigation.jspf" %>
+<%@ page import="jwp.model.User" %>
 
 <!doctype html>
 <html lang="ko">
@@ -29,9 +30,12 @@
 
         <main class="form-signin">
 
-          <form name="sign-up" method="post" action="/user/signup">
+          <form name="sign-up" method="post" action="/user/update">
             <div class="form-floating">
-              <input type="text" class="form-control" id="userId" name="userId" placeholder="Id">
+                <%
+                User user = (User) request.getAttribute("user");
+                %>
+              <input type="text" class="form-control" value="${user.userId}" id="userId" name="userId" placeholder="Id" readonly>
               <label for="userId">User Id</label>
             </div>
             <div class="form-floating">
