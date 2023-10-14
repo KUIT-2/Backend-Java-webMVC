@@ -18,7 +18,7 @@ function addAnswer(e) {
 function onSuccess(json, status){
     var answerTemplate = $("#answerTemplate").html();
     console.log(json);
-    var template = answerTemplate.format(json.answers.writer, new Date(json.answers.createdDate), json.answers.contents, json.answers.answerId, json.answers.answerId);
+    var template = answerTemplate.format(json.answer.writer, new Date(json.answer.createdDate), json.answer.contents, json.answer.answerId, json.answer.answerId);
     $(".qna-comment-kuit-article-comments").append(template);
     var countOfAnswer = document.getElementsByTagName("strong").item(0);
     let number = parseInt(countOfAnswer.innerText,10);

@@ -30,6 +30,9 @@ public class Question {
         this.countOfAnswer = countOfAnswer;
     }
 
+    public void setQuestionId(int id ){
+        this.questionId = id;
+    }
     public int getQuestionId() {
         return questionId;
     }

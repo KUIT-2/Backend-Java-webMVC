@@ -13,7 +13,7 @@ public class MemoryAnswerRepository {
     private static MemoryAnswerRepository memoryAnswerRepository;
 
     private MemoryAnswerRepository() {
-        insert(new Answer(++PK,1,"함형주","7호선 타세요", Date.valueOf(LocalDate.now())));
+        insert(new Answer(1,"함형주","7호선 타세요"));
     }
 
     public static MemoryAnswerRepository getInstance() {
@@ -24,10 +24,9 @@ public class MemoryAnswerRepository {
         return memoryAnswerRepository;
     }
 
-    public static int getPK(){
+    public int getPK(){
         return ++PK;
     }
-
     public List<Answer> findAllByQuestionId(String id) {
         ArrayList<Answer> result = new ArrayList<>();
 
@@ -44,6 +43,8 @@ public class MemoryAnswerRepository {
 
 
     public Answer insert(Answer answer) {
+        answer.setAnswerId(getPK());
+        answer.setCreatedDate(Date.valueOf(LocalDate.now()));
         answers.put(Integer.toString(answer.getAnswerId()),answer);
         return answer;
     }

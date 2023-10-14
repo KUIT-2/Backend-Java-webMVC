@@ -14,8 +14,8 @@ public class MemoryQuestionRepository {
     private static int PK = 0;
 
     private MemoryQuestionRepository() {
-        insert(new Question(++PK,"이주언","건대 어떻게 가나요?","홍대에서 건대 어떻게 가나요?", Date.valueOf(LocalDate.now()),1));
-        insert(new Question(++PK,"강연주","서버 개잘하는데 질문받음","질문 ㄱ", Date.valueOf(LocalDate.now()),0));
+        insert(new Question("이주언","건대 어떻게 가나요?","홍대에서 건대 어떻게 가나요?",1));
+        insert(new Question("강연주","서버 개잘하는데 질문받음","질문 ㄱ",0));
 
     }
 
@@ -41,6 +41,7 @@ public class MemoryQuestionRepository {
     }
 
     public void insert(Question question) {
+        question.setQuestionId(getPK());
         questions.put(Integer.toString(question.getQuestionId()), question);
     }
 

@@ -26,6 +26,12 @@ public class Answer {
         this.createdDate = Date.valueOf(LocalDate.now());
     }
 
+    public void setAnswerId(int id){
+        this.answerId = id;
+    }
+    public void setCreatedDate(Date date){
+        this.createdDate = date;
+    }
     public int getAnswerId() {
         return answerId;
     }

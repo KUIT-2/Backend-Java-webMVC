@@ -1,8 +1,10 @@
 package jwp.controller.qna;
 
 import core.db.MemoryQuestionRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 import jwp.model.Question;
 import jwp.util.UserSessionUtils;
@@ -10,25 +12,29 @@ import jwp.util.UserSessionUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.Objects;
 
-public class UpdateQuestionFormController implements Controller {
-    private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
+public class UpdateQuestionFormController extends AbstractController {
+    private final MemoryQuestionRepository memoryQuestionRepository = MemoryQuestionRepository.getInstance();
 
+    HttpSession session;
     @Override
-    public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        HttpSession session = req.getSession();
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+    @Override
+    public ModelAndView execute(Map<String, String> params) throws Exception {
         if (!UserSessionUtils.isLogined(session)) {
-            return new JspView("redirect:/users/loginForm");
+            return jspView("redirect:/users/loginForm");
         }
 
-        String questionId = req.getParameter("questionId");
-        Question question = questionRepository.findByQuestionId(questionId);
+        String questionId = params.get("questionId");
+        Question question = memoryQuestionRepository.findByQuestionId(questionId);
 
         if (!question.isSameUser(Objects.requireNonNull(UserSessionUtils.getUserFromSession(session)))) {
-            return new JspView("/qna/show?questionId=" + questionId);
+            throw new IllegalArgumentException();
         }
-        req.setAttribute("question", question);
-        return new JspView("/qna/updateForm.jsp");
+        return jspView("/qna/updateForm.jsp").addObject("question", question);
     }
 }

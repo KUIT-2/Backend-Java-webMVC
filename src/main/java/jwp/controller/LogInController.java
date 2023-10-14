@@ -1,30 +1,39 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 import jwp.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
-public class LogInController implements Controller {
+public class LogInController extends AbstractController {
+    private final MemoryUserRepository memoryUserRepository = MemoryUserRepository.getInstance();
+
+    HttpSession session;
+    @Override
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
 
     @Override
-    public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        HttpSession session = req.getSession();
-        String userId = req.getParameter("userId");
-        String password = req.getParameter("password");
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        String userId = params.get("userId");
+        String password = params.get("password");
         User logInUser = new User(userId, password);
-        User user = MemoryUserRepository.getInstance().findUserById(userId);
+        User user = memoryUserRepository.findUserById(userId);
 
         if (user != null && user.isSameUser(logInUser)) {
             session.setAttribute("user", user);
-            return new JspView("redirect:/");
+            return jspView("redirect:/");
         }
-        return new JspView("redirect:/user/loginFailed");
+        return jspView("redirect:/user/loginFailed");
     }
 }
