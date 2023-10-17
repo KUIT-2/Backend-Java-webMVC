@@ -20,12 +20,14 @@
             </tr>
             </thead>
             <tbody>
+
             <%
                 User my = (User) request.getAttribute("my");
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
                 for (User user : users) {
-                boolean isMe = my.isSameUser(user);
             %>
+            <c:set var="isMe" value="<%my.isSameUser(user)%>" />
+
             <tr>
                 <th class="col-md-3"><%= user.getUserId() %>
                 </th>
@@ -34,14 +36,13 @@
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
                 <th class="col-md-3">
-                    <c:choose>
-                    <c:when test="${isMe} eq true">
+                    <%
+                        if(my.isSameUser(user)) {
+                    %>
                         <a href="/user/updateForm?userId=<%=user.getUserId()%>" class="btn btn-success" role="button">수정</a>
-                    </c:when>
-                    <c:otherwise>
-                        <%= isMe %>
-                    </c:otherwise>
-                    </c:choose>
+                    <%
+                        }
+                    %>
                 </th>
             </tr>
             <%
