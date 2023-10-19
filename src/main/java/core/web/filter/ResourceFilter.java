@@ -34,6 +34,7 @@ public class ResourceFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         String path = req.getRequestURI().substring(req.getContextPath().length());
+        System.out.println("Path : "+path);
         if (isResourceUrl(path)) {
             logger.log(Level.INFO, "path: "+ path);
             defaultRequestDispatcher.forward(request, response);
@@ -44,7 +45,7 @@ public class ResourceFilter implements Filter {
 
     private boolean isResourceUrl(String url) {
         for (String prefix : resourcePrefixs) {
-            if (url.startsWith(prefix)) {
+            if (url.contains(prefix)) {
                 return true;
             }
         }
