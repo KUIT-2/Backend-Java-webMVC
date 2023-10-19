@@ -3,6 +3,7 @@ package jwp.controller;
 import core.db.MemoryUserRepository;
 import jwp.model.User;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,9 @@ public class CreateUserController extends HttpServlet {
                 req.getParameter("email"));
 
         MemoryUserRepository.getInstance().addUser(user);
-        System.out.println("??");
-        resp.sendRedirect("/user/list");
+//        System.out.println("??");
+//        resp.sendRedirect("/user/list");
+        RequestDispatcher rd = req.getRequestDispatcher("/user/login.jsp");
+        rd.forward(req, resp);
     }
 }

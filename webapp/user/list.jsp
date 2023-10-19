@@ -23,6 +23,8 @@
             </thead>
             <tbody>
             <%
+                Object value = session.getAttribute("user");
+                User sessionUser = (User) value;
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
                 for (User user : users) {
             %>
@@ -33,7 +35,13 @@
                     </th>
                     <th class="col-md-3"><%= user.getEmail() %>
                     </th>
-                    <th class="col-md-3"><a href="./update?userId=<%=user.getUserId()%>" class="btn btn-success" role="button">수정</a></th>
+                    <%
+                        if(user.getUserId().equals(sessionUser.getUserId())) {
+                    %>
+                            <th class="col-md-3"><a href="./update?userId=<%=user.getUserId()%>" class="btn btn-success" role="button">수정</a></th>
+                    <%
+                        }
+                    %>
                 </tr>
             <%
                 }
