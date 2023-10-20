@@ -36,8 +36,12 @@ public class UpdateUserFormController extends HttpServlet implements Controller 
     */
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        final String userId = req.getParameter("userId");
+        final User user = MemoryUserRepository.getInstance().findUserById(userId);
+
+        req.setAttribute("user", user);
+        RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
+        rd.forward(req,resp);
     }
 }

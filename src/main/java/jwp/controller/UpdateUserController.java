@@ -17,7 +17,6 @@ import java.io.IOException;
 public class UpdateUserController extends HttpServlet implements Controller{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         User user = MemoryUserRepository.getInstance().findUserById(req.getParameter("userId"));
         User updateUser = new User(req.getParameter("userId"), req.getParameter("password"), req.getParameter("name"), req.getParameter("email"));
         user.update(updateUser);
@@ -27,8 +26,12 @@ public class UpdateUserController extends HttpServlet implements Controller{
     }
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        User user = MemoryUserRepository.getInstance().findUserById(req.getParameter("userId"));
+        User updateUser = new User(req.getParameter("userId"), req.getParameter("password"), req.getParameter("name"), req.getParameter("email"));
+        user.update(updateUser);
+        MemoryUserRepository.getInstance().changeUserInfo(user);
+
+        resp.sendRedirect("/user/list");
     }
 }

@@ -36,8 +36,20 @@ public class ListUserController extends HttpServlet implements Controller {
     }
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        // 세션에 저장된 정보 가져오기
+        HttpSession session = req.getSession();
+        Object value = session.getAttribute("user");
+
+        if (value != null) {
+            User user = (User) value;
+            req.setAttribute("my", user);
+            req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
+            RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
+            rd.forward(req,resp);
+            return;
+        }
+
+        resp.sendRedirect("/");
     }
 }

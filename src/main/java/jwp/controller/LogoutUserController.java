@@ -20,8 +20,9 @@ public class LogoutUserController extends HttpServlet implements Controller {
     }
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        session.removeAttribute("user");
+        resp.sendRedirect("/");
     }
 }

@@ -30,8 +30,13 @@ public class CreateUserController extends HttpServlet implements Controller {
     }
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        User user = new User(req.getParameter("userId"),
+                req.getParameter("password"),
+                req.getParameter("name"),
+                req.getParameter("email"));
+
+        MemoryUserRepository.getInstance().addUser(user);
+        resp.sendRedirect("/user/list");
     }
 }

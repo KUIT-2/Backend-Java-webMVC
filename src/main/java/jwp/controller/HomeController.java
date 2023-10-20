@@ -14,16 +14,13 @@ import java.io.IOException;
 public class HomeController extends HttpServlet implements Controller {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*System.out.println("URI : " + req.getRequestURI());
-        System.out.println("URL : " + req.getRequestURL());
-        System.out.println("ContextPath : " + req.getContextPath());*/
         RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
         rd.forward(req,resp);
     }
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
+        rd.forward(req,resp);
     }
 }

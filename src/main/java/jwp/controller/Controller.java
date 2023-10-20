@@ -1,11 +1,10 @@
 package jwp.controller;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface Controller {
-    void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException;
+    void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
 }

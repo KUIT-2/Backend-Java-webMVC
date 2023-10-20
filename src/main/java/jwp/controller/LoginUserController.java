@@ -17,9 +17,6 @@ import java.io.IOException;
 public class LoginUserController extends HttpServlet implements Controller {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*System.out.println("URI : " + req.getRequestURI());
-        System.out.println("URL : " + req.getRequestURL());
-        System.out.println("ContextPath : " + req.getContextPath());*/
         String id = req.getParameter("userId");
         String password = req.getParameter("password");
         User user = MemoryUserRepository.getInstance().findUserById(id);
@@ -35,8 +32,16 @@ public class LoginUserController extends HttpServlet implements Controller {
     }
 
     @Override
-    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String id = req.getParameter("userId");
+        String password = req.getParameter("password");
+        User user = MemoryUserRepository.getInstance().findUserById(id);
+
+        if(user.matchPassword(password)) {
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user);
+            resp.sendRedirect("/");
+            return;
+        }
     }
 }
