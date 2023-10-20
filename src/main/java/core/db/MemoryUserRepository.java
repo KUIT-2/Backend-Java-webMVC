@@ -38,4 +38,9 @@ public class MemoryUserRepository {
             users.put(user.getUserId(), user);
         }
     }
+
+    public void update(User newUser) {
+        User user = users.get(newUser.getUserId());
+        user.update(newUser);
+    }
 }

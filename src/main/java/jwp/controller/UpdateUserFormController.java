@@ -1,6 +1,7 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import jwp.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,18 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/list")
-public class ListUserController extends HttpServlet {
+@WebServlet("/user/updateForm")
+public class UpdateUserFormController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if(jwp.session.UserSession.isLogined(request.getSession())){
-            request.setAttribute("users", MemoryUserRepository.getInstance().findAll());
-            String path = "/user/list.jsp";
+        String userId = request.getParameter("userId");
+        User user = MemoryUserRepository.getInstance().findUserById(userId);
+        if(user!=null){
+            request.setAttribute("user", user);
+            String path = "/user/updateForm.jsp";
             RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
             return;
         }
-        response.sendRedirect("/user/login.jsp");
+        response.sendRedirect("/");
     }
 }
