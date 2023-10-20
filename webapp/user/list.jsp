@@ -28,7 +28,7 @@
                 for (User user : users) {
             %>
             <tr>
-                <form action="/user/update" method="get">
+                <form action="/user/updateForm" method="get">
                 <th class="col-md-3"><%= user.getUserId() %>
                 </th>
                 <th class="col-md-3"><%= user.getName() %>
