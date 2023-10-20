@@ -3,8 +3,11 @@ package jwp.controller;
 import core.db.MemoryUserRepository;
 import jwp.model.User;
 
+import javax.naming.ldap.Control;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/user/list")
-public class ListUserController extends HttpServlet {
+//@WebServlet("/user/list")
+public class ListUserController extends HttpServlet implements Controller {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 세션에 저장된 정보 가져오기
@@ -30,5 +33,11 @@ public class ListUserController extends HttpServlet {
         }
 
         resp.sendRedirect("/");
+    }
+
+    @Override
+    public void execute(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
     }
 }
