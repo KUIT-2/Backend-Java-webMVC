@@ -1,28 +1,30 @@
 package jwp.controller;
 
+import jwp.RequestURL;
 import jwp.model.User;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
-@WebServlet("/user/login")
-public class LoginController extends HttpServlet {
+
+public class LoginController implements Controller{
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User(req.getParameter("userId"),
-                req.getParameter("password"),
-                req.getParameter("name"),
-                req.getParameter("email"));
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        if(request.getMethod().equals("GET")) {
+            return RequestURL.USER_LOGIN.getUrl();
+        }
+
+        //doPost
+        User user = new User(request.getParameter("userId"),
+                request.getParameter("password"),
+                request.getParameter("name"),
+                request.getParameter("email"));
         // 세션 정보 저장
-        HttpSession session = req.getSession();
+        HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
-        resp.sendRedirect("/");
+        return "redirect:" + RequestURL.ROOT.getUrl();
     }
 }
