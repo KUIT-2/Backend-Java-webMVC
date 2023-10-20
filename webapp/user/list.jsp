@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="jwp.model.User" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 
 <!doctype html>
@@ -44,8 +46,10 @@
             </thead>
             <tbody>
             <%
+                String my = (String) request.getAttribute("myinfo");
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
                 for (User user : users) {
+                boolean same = user.isSameUser(my);
             %>
             <tr>
                 <th class="col-md-3"><%= user.getUserId() %>
@@ -54,7 +58,16 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
+                <c:choose>
+                <c:when test="${same}">
                 <th class="col-md-3"><a href="/user/updateform?username=<%= user.getUserId() %>" class="btn btn-success" role="button">수정</a></th>
+                </c:when>
+                <c:otherwise>
+                <th class="col-md-3"><a href="/user/list" class="btn btn-success" role="button">수정</a></th>
+                </c:otherwise>
+                </c:choose>
+
+
             </tr>
             <%
                 }

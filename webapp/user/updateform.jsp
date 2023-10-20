@@ -78,7 +78,7 @@
                 <label for="name">Name</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" value = "${user.getEmail()} id="email" name="email" placeholder="name@example.com">
+                <input type="email" class="form-control" value = "${user.getEmail()}" id="email" name="email" placeholder="name@example.com">
                 <label for="email">Email address</label>
             </div>
             <div style="height:10px;">
