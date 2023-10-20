@@ -16,11 +16,17 @@ public class UpdateUserFormController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("user", MemoryUserRepository.getInstance().findUserById(req.getParameter("userId")));
+        String userId = req.getParameter("userId");
+        User user = MemoryUserRepository.getInstance().findUserById(userId);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
+        if (user != null) {
+            req.setAttribute("user", MemoryUserRepository.getInstance().findUserById(req.getParameter("userId")));
 
-        rd.forward(req,resp);
+            RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
+
+            rd.forward(req,resp);
+        }
+
     }
 
     @Override

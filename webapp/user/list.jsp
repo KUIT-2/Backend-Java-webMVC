@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="jwp.model.User" %>
+<% final String USER_SESSION_KEY = "user"; %>
 
 
 <!doctype html>
@@ -24,6 +25,11 @@
             </thead>
             <tbody>
             <%
+                HttpSession thisSession = request.getSession();
+                Object value = thisSession.getAttribute(USER_SESSION_KEY);
+
+                User loginUser = (User) value;
+
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
                 for (User user : users) {
             %>
@@ -35,10 +41,11 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
-<%--                <th class="col-md-3"><a href="update" class="btn btn-success" role="button">수정</a></th>--%>
                     <th class="col-md-3">
-                        <input type="hidden" name="userId" value="<%= user.getUserId()%>">
+                        <% if (user.isSameUser(loginUser)) { %>
+                        <input type="hidden" name="userId" value="<%= loginUser.getUserId()%>">
                         <button type="submit" class="btn btn-success">수정</button>
+                        <% } %>
                     </th>
                 </form>
 
