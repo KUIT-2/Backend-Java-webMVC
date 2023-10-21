@@ -14,7 +14,7 @@ public class LogoutController implements Controller{
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         //세션 데이터 삭제
         HttpSession session = request.getSession();
-        session.removeAttribute("user");
+        session.invalidate();
 
         return "redirect:" + ROOT.getUrl();
     }
