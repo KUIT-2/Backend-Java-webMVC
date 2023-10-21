@@ -157,15 +157,15 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </a>\n");
       out.write("\n");
       out.write("        <ul class=\"nav col-12 col-md-auto mb-2 justify-content-center mb-md-0\">\n");
-      out.write("            <li><a href=\"/index.html\" class=\"nav-link px-2 link-secondary\">Q&A</a></li>\n");
+      out.write("            <li><a href=\"/index.jsp\" class=\"nav-link px-2 link-secondary\">Q&A</a></li>\n");
       out.write("            <li><a href=\"#\" class=\"nav-link px-2 link-dark\">FAQs</a></li>\n");
       out.write("            <li><a href=\"/user/userList\" class=\"nav-link px-2 link-dark\">User List</a></li>\n");
       out.write("            <li><a href=\"#\" class=\"nav-link px-2 link-dark\">About</a></li>\n");
       out.write("        </ul>\n");
       out.write("\n");
       out.write("        <div class=\"col-md-3 text-end\">\n");
-      out.write("            <a href=\"/user/login.html\" type=\"button\" class=\"btn btn-outline-primary me-2\">Login</a>\n");
-      out.write("            <a href=\"/user/form.html\" type=\"button\" class=\"btn btn-primary\">Sign-up</a>\n");
+      out.write("            <a href=\"/user/login.jsp\" type=\"button\" class=\"btn btn-outline-primary me-2\">Login</a>\n");
+      out.write("            <a href=\"/user/form.jsp\" type=\"button\" class=\"btn btn-primary\">Sign-up</a>\n");
       out.write("        </div>\n");
       out.write("    </header>\n");
       out.write("\n");
