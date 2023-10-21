@@ -11,20 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jwp.model.User;
 
-@WebServlet("/user/updateForm")
-public class UpdateUserFormController extends HttpServlet {
-
+@WebServlet("/user/login")
+public class LoginController extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         String userId = req.getParameter("userId");
+        String password = req.getParameter("password");
+        User loginUser = new User(userId, password);
         User user = MemoryUserRepository.getInstance().findUserById(userId);
-        if (user != null && session.getAttribute("user").equals(user)) {
-            req.setAttribute("user", user);
-            RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
+
+        if (user != null && user.isSameUser(loginUser)) {
+            session.setAttribute("user", user);
+            RequestDispatcher rd = req.getRequestDispatcher("/");
             rd.forward(req, resp);
         } else {
-            resp.sendRedirect("/");
+            resp.sendRedirect("/user/login_failed.jsp");
         }
     }
 }
