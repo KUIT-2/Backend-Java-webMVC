@@ -17,6 +17,7 @@ public class ListUserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("/user/list/ controller 진입");
         req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
+        System.out.println(MemoryUserRepository.getInstance().findAll());
         RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
         rd.forward(req,resp);
     }
