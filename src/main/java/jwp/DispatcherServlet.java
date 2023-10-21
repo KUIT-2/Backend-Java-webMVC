@@ -21,11 +21,11 @@ public class DispatcherServlet extends HttpServlet {
         requestMapper = new RequestMapper();
     }
 
-    public String setRedirectRequestUrl(String url) {
+    private String setRedirectRequestUrl(String url) {
         return url.split(REDIRECT_DELIMITER)[1];
     }
 
-    public String setForwardRequestUrl(String url) {
+    private String setForwardRequestUrl(String url) {
         return url + JSP;
     }
 
