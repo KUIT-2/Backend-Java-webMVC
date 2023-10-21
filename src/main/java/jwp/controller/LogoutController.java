@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static jwp.RequestURL.*;
+
 public class LogoutController implements Controller{
 
     @Override
@@ -14,6 +16,6 @@ public class LogoutController implements Controller{
         HttpSession session = request.getSession();
         session.removeAttribute("user");
 
-        return "redirect:" + RequestURL.ROOT.getUrl();
+        return "redirect:" + ROOT.getUrl();
     }
 }

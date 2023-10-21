@@ -7,6 +7,8 @@ import jwp.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static jwp.RequestURL.*;
+
 public class CreateUserController implements Controller {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -20,9 +22,9 @@ public class CreateUserController implements Controller {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         if(request.getMethod().equals("GET")) {
-            return RequestURL.USER_FORM.getUrl();
+            return USER_FORM.getUrl();
         }
         doPost(request, response);
-        return RequestURL.LOGIN.getUrl();
+        return LOGIN.getUrl();
     }
 }

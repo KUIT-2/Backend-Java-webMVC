@@ -7,6 +7,8 @@ import jwp.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static jwp.RequestURL.*;
+
 public class UpdateUserFormController implements Controller{
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -28,9 +30,9 @@ public class UpdateUserFormController implements Controller{
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         if(request.getMethod().equals("GET")) {
             doGet(request,response);
-            return RequestURL.USER_UPDATE_FORM.getUrl();
+            return USER_UPDATE_FORM.getUrl();
         }
         doPost(request, response);
-        return "redirect:" + RequestURL.USER_LIST.getUrl();
+        return "redirect:" + USER_LIST.getUrl();
     }
 }

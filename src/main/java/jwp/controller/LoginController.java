@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static jwp.RequestURL.*;
+
 
 public class LoginController implements Controller{
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         if(request.getMethod().equals("GET")) {
-            return RequestURL.USER_LOGIN.getUrl();
+            return USER_LOGIN.getUrl();
         }
 
         //doPost
@@ -25,6 +27,6 @@ public class LoginController implements Controller{
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
-        return "redirect:" + RequestURL.ROOT.getUrl();
+        return "redirect:" + ROOT.getUrl();
     }
 }
