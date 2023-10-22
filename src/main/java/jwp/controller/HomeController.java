@@ -1,19 +1,13 @@
 package jwp.controller;
 
-import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import core.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
-public class HomeController extends HttpServlet {
+public class HomeController implements Controller {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("/home.jsp");
-        rd.forward(req, resp);
+    public String handleRequest(HttpServletRequest req, HttpServletResponse resp) {
+        return "/home.jsp";
     }
 }

@@ -1,20 +1,15 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
-import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import core.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jwp.model.User;
 
-@WebServlet("/user/login")
-public class LoginController extends HttpServlet {
+public class LoginController implements Controller {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public String handleRequest(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         String userId = req.getParameter("userId");
         String password = req.getParameter("password");
@@ -23,10 +18,8 @@ public class LoginController extends HttpServlet {
 
         if (user != null && user.isSameUser(loginUser)) {
             session.setAttribute("user", user);
-            RequestDispatcher rd = req.getRequestDispatcher("/");
-            rd.forward(req, resp);
-        } else {
-            resp.sendRedirect("/user/login_failed.jsp");
+            return "redirect:/";
         }
+        return "redirect:/user/loginFailed";
     }
 }
