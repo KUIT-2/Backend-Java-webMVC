@@ -24,14 +24,15 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         Controller controller = requestMapping.getController(req);
+        if (controller == null){
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
         controller.setSession(req.getSession());    // 세션 추가
         Map<String, String> params = getParams(req);    // request에서 파라미터 전부 가져와서 map에 담아줌
         try {
             ModelAndView mav = controller.execute(params);
             View view = mav.getView();
-            if (view == null) {
-                return;
-            }
             view.render(mav.getModel(),req,resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());

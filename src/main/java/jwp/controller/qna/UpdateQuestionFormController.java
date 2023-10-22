@@ -28,6 +28,6 @@ public class UpdateQuestionFormController extends AbstractController {
 
     @Override
     public void setSession(HttpSession session) {
-        super.setSession(session);
+        this.session = session;
     }
 }
