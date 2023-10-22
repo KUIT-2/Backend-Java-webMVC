@@ -32,6 +32,7 @@ public class HandlerMapping {
         mappings.put("/user/loginFailed", new ForwardController("/user/login_failed.jsp"));
     }
 
+
     public Controller getController(HttpServletRequest req) {
         return mappings.get(req.getRequestURI());
     }
