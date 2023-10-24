@@ -1,5 +1,6 @@
 package core.mvc;
 
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 
 import javax.servlet.RequestDispatcher;
@@ -27,11 +28,9 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-            View view = controller.execute(req, resp);
-            if (view == null) {
-                return;
-            }
-            view.render(req,resp);
+            ModelAndView mav = controller.execute(req, resp);
+
+            mav.render(req,resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
