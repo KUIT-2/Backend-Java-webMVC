@@ -12,7 +12,6 @@ import java.util.Arrays;
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
 
-
     private RequestMapping requestMapping;
     private static final String REDIRECT_PREFIX = "redirect:";
 
