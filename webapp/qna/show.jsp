@@ -53,7 +53,7 @@
                         </ul>
                     </div>
                 </article>
-  
+
                 <div class="qna-comment">
                     <div class="qna-comment-kuit">
                         <p class="qna-comment-count"><strong>2</strong>개의 의견</p>
@@ -134,7 +134,7 @@
           </div>
       </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/scripts.js"></script>
   </body>
