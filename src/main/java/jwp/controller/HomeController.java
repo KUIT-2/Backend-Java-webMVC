@@ -4,6 +4,7 @@ import core.db.MemoryQuestionRepository;
 import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 import jwp.model.Question;
 
@@ -15,9 +16,9 @@ import java.util.List;
 public class HomeController extends AbstractController {
     private final MemoryQuestionRepository memoryQuestionRepository= MemoryQuestionRepository.getInstance();
     @Override
-    public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         List<Question> questions = memoryQuestionRepository.findAll();
         req.setAttribute("questions",questions);
-        return new JspView("/home.jsp");
+        return jspView("/home.jsp");
     }
 }

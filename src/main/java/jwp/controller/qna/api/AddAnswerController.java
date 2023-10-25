@@ -6,6 +6,7 @@ import core.db.MemoryQuestionRepository;
 import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JsonView;
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 import jwp.model.Answer;
 import jwp.model.Question;
@@ -20,7 +21,7 @@ public class AddAnswerController extends AbstractController {
     private final MemoryAnswerRepository answerRepository = MemoryAnswerRepository.getInstance();
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
     @Override
-    public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         Answer answer = new Answer(MemoryAnswerRepository.getPK(),Integer.parseInt(req.getParameter("questionId")), req.getParameter("writer"), req.getParameter("contents"), Date.valueOf(LocalDate.now()));
         Answer savedAnswer = answerRepository.insert(answer);
 
@@ -32,6 +33,6 @@ public class AddAnswerController extends AbstractController {
         req.setAttribute("answer",savedAnswer);
 
         //페이지가 아니므로 null 반환.
-        return new JsonView();
+        return jsonView().addModel("answer", savedAnswer);
     }
 }

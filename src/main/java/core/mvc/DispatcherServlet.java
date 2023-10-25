@@ -28,7 +28,7 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-            ModelAndView mav = new ModelAndView(controller.execute(req, resp));
+            ModelAndView mav = controller.execute(req, resp);
             mav.render(req, resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());

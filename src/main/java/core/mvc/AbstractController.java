@@ -6,11 +6,11 @@ import core.mvc.view.ModelAndView;
 
 public abstract class AbstractController implements Controller {
 
-    private ModelAndView jspView(String url) {
+    protected ModelAndView jspView(String url) {
         return new ModelAndView(new JspView(url));
     }
 
-    private ModelAndView jsonView(String url) {
+    protected ModelAndView jsonView() {
         return new ModelAndView(new JsonView());
     }
 }

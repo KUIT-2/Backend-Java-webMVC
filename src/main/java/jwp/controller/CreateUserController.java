@@ -4,6 +4,7 @@ import core.db.MemoryUserRepository;
 import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 import jwp.model.User;
 
@@ -14,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateUserController extends AbstractController {
 
     @Override
-    public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         User user = new User(req.getParameter("userId"),
                 req.getParameter("password"),
                 req.getParameter("name"),
                 req.getParameter("email"));
 
         MemoryUserRepository.getInstance().addUser(user);
-        return new JspView("redirect:/user/list");
+        return jspView("redirect:/user/list");
     }
 }
