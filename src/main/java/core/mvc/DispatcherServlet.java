@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
@@ -26,13 +29,29 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         Controller controller = requestMapping.getController(req);
+        controller.setSession(req.getSession());
 
         try {
-            ModelAndView mav = controller.execute(req, resp);
+            Map<String, String> params = getParamsFromRequest(req);
+
+            ModelAndView mav = controller.execute(params);
             mav.render(req, resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
+    }
+
+    private Map<String, String> getParamsFromRequest(HttpServletRequest req) {
+        Map<String, String> map = new HashMap<>();
+        Enumeration e = req.getParameterNames();
+        while(e.hasMoreElements()) {
+            String name = (String) e.nextElement();
+            String[] values = req.getParameterValues(name);
+            for (String value : values) {
+                map.put(name, value);
+            }
+        }
+        return map;
     }
 
     private void move(String viewName, HttpServletRequest req, HttpServletResponse resp)

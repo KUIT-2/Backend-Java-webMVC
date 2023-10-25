@@ -12,25 +12,30 @@ import jwp.util.UserSessionUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.Objects;
 
 public class UpdateQuestionFormController extends AbstractController {
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
+    HttpSession session;
 
     @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        HttpSession session = req.getSession();
+    public ModelAndView execute(Map<String, String> params) throws Exception {
         if (!UserSessionUtils.isLogined(session)) {
             return jspView("redirect:/users/loginForm");
         }
 
-        String questionId = req.getParameter("questionId");
+        String questionId = params.get("questionId");
         Question question = questionRepository.findByQuestionId(questionId);
 
         if (!question.isSameUser(Objects.requireNonNull(UserSessionUtils.getUserFromSession(session)))) {
             return jspView("/qna/show?questionId=" + questionId);
         }
-        req.setAttribute("question", question);
-        return jspView("/qna/updateForm.jsp");
+        return jspView("/qna/updateForm.jsp").addModel("question", question);
+    }
+
+    @Override
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 }

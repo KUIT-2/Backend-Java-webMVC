@@ -9,14 +9,19 @@ import core.mvc.view.View;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 public class LogOutController extends AbstractController {
 
+    HttpSession session;
     @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        HttpSession session = req.getSession();
+    public ModelAndView execute(Map<String, String> params) throws Exception {
         session.removeAttribute("user");
         return jspView("redirect:/");
+    }
+    @Override
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 }

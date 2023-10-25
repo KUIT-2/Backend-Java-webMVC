@@ -10,18 +10,19 @@ import jwp.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 
 public class UpdateUserController extends AbstractController {
 
-    @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        MemoryUserRepository.getInstance().update(new User(
-                req.getParameter("userId"),
-                req.getParameter("password"),
-                req.getParameter("name"),
-                req.getParameter("email")));
-        return jspView("redirect:/user/list");
 
+    @Override
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        MemoryUserRepository.getInstance().update(new User(
+                params.get("userId"),
+                params.get("password"),
+                params.get("name"),
+                params.get("email")));
+        return jspView("redirect:/user/list");
     }
 }

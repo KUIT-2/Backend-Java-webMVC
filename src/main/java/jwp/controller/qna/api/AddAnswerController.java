@@ -16,21 +16,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Map;
 
 public class AddAnswerController extends AbstractController {
     private final MemoryAnswerRepository answerRepository = MemoryAnswerRepository.getInstance();
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
+
     @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        Answer answer = new Answer(MemoryAnswerRepository.getPK(),Integer.parseInt(req.getParameter("questionId")), req.getParameter("writer"), req.getParameter("contents"), Date.valueOf(LocalDate.now()));
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        Answer answer = new Answer(MemoryAnswerRepository.getPK(),Integer.parseInt(params.get("questionId")), params.get("writer"), params.get("contents"), Date.valueOf(LocalDate.now()));
         Answer savedAnswer = answerRepository.insert(answer);
 
         Question question = questionRepository.findByQuestionId(Integer.toString(answer.getQuestionId()));
         question.increaseCountOfAnswer();
 
         questionRepository.updateCountOfAnswer(question);
-
-        req.setAttribute("answer",savedAnswer);
 
         //페이지가 아니므로 null 반환.
         return jsonView().addModel("answer", savedAnswer);

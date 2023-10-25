@@ -6,6 +6,7 @@ import core.mvc.view.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 public class ForwardController extends AbstractController {
 
@@ -19,7 +20,7 @@ public class ForwardController extends AbstractController {
     }
 
     @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView execute(Map<String, String> params) throws Exception {
         return jspView(forwardUrl);
     }
 }

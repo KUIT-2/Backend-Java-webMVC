@@ -10,17 +10,17 @@ import jwp.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 
 public class UpdateUserFormController extends AbstractController {
 
     @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        String userId = req.getParameter("userId");
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        String userId = params.get("userId");
         User user = MemoryUserRepository.getInstance().findUserById(userId);
         if (user != null) {
-            req.setAttribute("user",user);
-            return jspView("/user/updateForm.jsp");
+            return jspView("/user/updateForm.jsp").addModel("user", user);
         }
         return jspView("redirect:/");
     }

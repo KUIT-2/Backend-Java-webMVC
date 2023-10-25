@@ -14,19 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ShowController extends AbstractController {
     private final MemoryQuestionRepository memoryQuestionRepository = MemoryQuestionRepository.getInstance();
     private final MemoryAnswerRepository memoryAnswerRepository = MemoryAnswerRepository.getInstance();
 
     @Override
-    public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String questionId = request.getParameter("questionId");
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        String questionId = params.get("questionId");
         Question question = memoryQuestionRepository.findByQuestionId(questionId);
         List<Answer> answers = memoryAnswerRepository.findAllByQuestionId(questionId);
-        request.setAttribute("question", question);
-        request.setAttribute("answers",answers);
-        return jspView( "/qna/show.jsp");
+        return jspView( "/qna/show.jsp").addModel("question", question).addModel("answers", answers);
     }
 }

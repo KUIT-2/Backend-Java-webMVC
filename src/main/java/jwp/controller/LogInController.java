@@ -11,15 +11,16 @@ import jwp.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 public class LogInController extends AbstractController {
+    HttpSession session;
 
     @Override
-    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        HttpSession session = req.getSession();
-        String userId = req.getParameter("userId");
-        String password = req.getParameter("password");
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        String userId = params.get("userId");
+        String password = params.get("password");
         User logInUser = new User(userId, password);
         User user = MemoryUserRepository.getInstance().findUserById(userId);
 
@@ -28,5 +29,10 @@ public class LogInController extends AbstractController {
             return jspView("redirect:/");
         }
         return jspView("redirect:/user/loginFailed");
+    }
+
+    @Override
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 }
