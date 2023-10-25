@@ -2,6 +2,7 @@ package jwp.controller.qna;
 
 import core.db.MemoryAnswerRepository;
 import core.db.MemoryQuestionRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
 import core.mvc.view.View;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.List;
 
-public class ShowController implements Controller {
+public class ShowController extends AbstractController {
     private final MemoryQuestionRepository memoryQuestionRepository = MemoryQuestionRepository.getInstance();
     private final MemoryAnswerRepository memoryAnswerRepository = MemoryAnswerRepository.getInstance();
 

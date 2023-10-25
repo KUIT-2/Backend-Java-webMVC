@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MemoryQuestionRepository {
     private Map<String, Question> questions= new HashMap<>();
@@ -50,6 +51,6 @@ public class MemoryQuestionRepository {
     }
 
     public List<Question> findAll() {
-        return questions.values().stream().toList();
+        return questions.values().stream().collect(Collectors.toList());
     }
 }

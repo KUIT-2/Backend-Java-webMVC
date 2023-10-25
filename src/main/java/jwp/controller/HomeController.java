@@ -1,6 +1,7 @@
 package jwp.controller;
 
 import core.db.MemoryQuestionRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
 import core.mvc.view.View;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
-public class HomeController implements Controller{
+public class HomeController extends AbstractController {
     private final MemoryQuestionRepository memoryQuestionRepository= MemoryQuestionRepository.getInstance();
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {

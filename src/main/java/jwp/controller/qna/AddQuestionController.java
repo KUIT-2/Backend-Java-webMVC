@@ -1,6 +1,7 @@
 package jwp.controller.qna;
 
 import core.db.MemoryQuestionRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
 import core.mvc.view.View;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class AddQuestionController implements Controller {
+public class AddQuestionController extends AbstractController {
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
 
     @Override

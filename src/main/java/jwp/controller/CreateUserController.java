@@ -1,6 +1,7 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
 import core.mvc.view.View;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class CreateUserController implements Controller {
+public class CreateUserController extends AbstractController {
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {

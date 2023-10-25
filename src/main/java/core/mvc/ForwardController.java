@@ -6,7 +6,7 @@ import core.mvc.view.View;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ForwardController implements Controller {
+public class ForwardController extends AbstractController {
 
     private String forwardUrl;
 
