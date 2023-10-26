@@ -1,7 +1,9 @@
 package jwp.controller.qna;
 
+import core.db.MemoryAnswerRepository;
 import core.db.MemoryQuestionRepository;
 import core.mvc.Controller;
+import jwp.model.Answer;
 import jwp.model.Question;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ public class AddQuestionController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         Question question = new Question(MemoryQuestionRepository.getPK(),request.getParameter("writer"), request.getParameter("title"), request.getParameter("contents"), Date.valueOf(LocalDate.now()), 0);
         questionRepository.insert(question);
 
