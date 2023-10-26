@@ -14,6 +14,13 @@ public class JsonView implements View{
     public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json;charset=UTF-8");
+
+        // 캐시를 비활성화하기 위해 Cache-Control 헤더 설정
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+
         PrintWriter out = response.getWriter();
         out.print(mapper.writeValueAsString(model.values()));
     }
