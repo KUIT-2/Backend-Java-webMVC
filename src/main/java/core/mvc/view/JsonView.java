@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JsonView implements View {
+
+    //ObjectMapper를 통해 사용자에게 Json데이터 전달.
     @Override
     public void render(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
