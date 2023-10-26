@@ -85,3 +85,18 @@ ajax브랜치에 비해 거치는 클래스가 많아졌을 뿐이지 jackson패
 (전반적인 로직은 똑같았다는 말임)
 
 그래서 이 부분을 해결하고 싶다......
+
+-- 해결!!!---
+
+뭐가 문제?
+
+js파일이 문제였던거임
+
+웹 페이지에서 개발자도구를 통해 로그를 찍어보았더니
+var template = answerTemplate.format(json.answers.writer, new Date(json.answers.createdDate), json.answers.contents, json.answers.answerId, json.answers.answerId);
+이 부분을 읽을 수가 없다고 함
+그래서 생각을 해보니 우리가 답변을 입력받고 키 값을 'answer'로 주었지 'answers'로 주지 않았음
+그래서 json.answers.xx 부분을 json.answer.xx로 바꾸고
+out.print(mapper.writeValueAsString(model.values())); 이거에서 model.values()부분을 model로 바꾸기
+이렇게 해야지 map자료구조 형식으로 쓰여져서 json.answer 형식으로 접근할 수 있다.
+위 방식대로 고치니 문제가 해결이되었다 ~~~!!!
