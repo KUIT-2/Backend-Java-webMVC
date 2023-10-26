@@ -22,7 +22,7 @@ public class JsonView implements View{
 
 
         PrintWriter out = response.getWriter();
-        out.print(mapper.writeValueAsString(model.values()));
+        out.print(mapper.writeValueAsString(model));
     }
 
     private Map<String, Object> createModel(HttpServletRequest request) {
