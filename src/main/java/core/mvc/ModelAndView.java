@@ -16,7 +16,7 @@ public class ModelAndView {
     }
 
     public void render(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        view.render(model, req, resp);
+        view.render(req, resp, model);
     }
 
     public ModelAndView addModelElement(String key, Object value) {

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
@@ -27,12 +26,14 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-            View view = controller.execute(req, resp);
+//            View view = controller.execute(req, resp);
+            ModelAndView mav = controller.execute(req, resp);
 
-            if (view == null) {
+            if (mav == null) {
                 return;
             }
-            view.render(req, resp);
+            mav.render(req, resp);
+//            view.render(req, resp, );
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }

@@ -2,9 +2,10 @@ package jwp.controller;
 
 import core.db.MemoryUserRepository;
 import core.mvc.Controller;
+import core.mvc.ModelAndView;
 import core.mvc.view.JspView;
-import core.mvc.view.View;
 import jwp.util.UserSessionUtils;
+import org.apache.tomcat.util.log.UserDataHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ListUserController implements Controller {
 
     @Override
-    public View execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         if (UserSessionUtils.isLogined(req.getSession())) {
-            req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
-            return new JspView("/user/list.jsp");
+            ModelAndView mav = new ModelAndView(new JspView("/user/list.jsp"));
+            mav.addModelElement("users", MemoryUserRepository.getInstance().findAll());
+            return mav;
         }
-        return new JspView("redirect:/user/loginForm");
+        return new ModelAndView(new JspView("redirect:/user/loginForm"));
     }
 }
