@@ -10,14 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/userList")
-public class ListUserController extends HttpServlet {
+@WebServlet("/")
+public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher rd = req.getRequestDispatcher("/home/home.jsp");
+        rd.forward(req,resp);
+    }
 
-
-        req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
-        RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher rd = req.getRequestDispatcher("/home/home.jsp");
         rd.forward(req,resp);
     }
 }
