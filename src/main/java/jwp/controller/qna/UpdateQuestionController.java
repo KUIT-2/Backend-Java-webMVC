@@ -1,6 +1,7 @@
 package jwp.controller.qna;
 
 import core.db.MemoryQuestionRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
 import core.mvc.view.ModelAndView;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
-public class UpdateQuestionController implements Controller {
+public class UpdateQuestionController extends AbstractController {
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
 
     @Override
@@ -32,6 +33,6 @@ public class UpdateQuestionController implements Controller {
         question.updateTitleAndContents(req.getParameter("title"),req.getParameter("contents"));
         questionRepository.update(question);
 
-        return new ModelAndView(new JspView("redirect:/"));
+        return jspView("redirect:/");
     }
 }

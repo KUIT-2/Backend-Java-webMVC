@@ -1,6 +1,7 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.view.JspView;
 import core.mvc.view.ModelAndView;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class UpdateUserFormController implements Controller {
+public class UpdateUserFormController extends AbstractController {
 
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -18,8 +19,9 @@ public class UpdateUserFormController implements Controller {
         User user = MemoryUserRepository.getInstance().findUserById(userId);
         if (user != null) {
             req.setAttribute("user",user);
-            return new ModelAndView(new JspView("/user/updateForm.jsp"));
+            return jspView("/user/updateForm.jsp");
         }
-        return new ModelAndView(new JspView("redirect:/"));
+
+        return jspView("redirect:/");
     }
 }
