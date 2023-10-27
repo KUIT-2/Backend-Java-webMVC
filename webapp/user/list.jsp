@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="jwp.model.User" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!doctype html>
@@ -52,8 +53,18 @@
         </ul>
 
         <div class="col-md-3 text-end">
-            <a href="/user/login.html" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/user/form.html" type="button" class="btn btn-primary">Sign-up</a>
+
+        <c:choose>
+        <c:when test="${not empty sessionScope.user}">
+        	<a href="/user/logout" role="button" class="btn btn-outline-primary me-2">Log-Out</a>
+        	<a href="/user/updateForm?userId=${sessionScope.user.userId}" role="button" class="btn btn-primary" >개인정보수정</a>
+        </c:when>
+        <c:otherwise>
+        	<a href="/user/login" type="button" class="btn btn-outline-primary me-2">Log-In</a>
+        	<a href="/user/signup" type="button" class="btn btn-primary">Sign-up</a>
+        </c:otherwise>
+        </c:choose>
+
         </div>
     </header>
 
@@ -71,6 +82,7 @@
             <tbody>
             <%
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
+                String myId = (String) session.getAttribute("myId");
                 for (User user : users) {
             %>
             <tr>
@@ -80,9 +92,25 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
-                <th class="col-md-3"><a href="#" class="btn btn-success" role="button">수정</a></th>
+
+                <%
+                if(myId == user.getUserId()){
+                %>
+
+                <th class="col-md-3"><a href="/user/updateForm?userId=<%= user.getUserId() %>" class="btn btn-success" role="button">수정</a></th>
+
+                <%
+                }else{
+                %>
+                <th class="col-md-3"><a href="/user/updateForm?userId=<%= user.getUserId() %>" class="btn btn-success" role="button">${myId}, ${user.getUserId()}</a></th>
+
+                <%
+                }
+                %>
+
             </tr>
             <%
+
                 }
             %>
             </tbody>
