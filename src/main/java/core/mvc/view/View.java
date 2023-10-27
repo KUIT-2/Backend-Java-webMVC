@@ -1,2 +1,9 @@
-package core.mvc.view;public class View {
+package core.mvc.view;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public interface View {
+    void render(HttpServletRequest req, HttpServletResponse resp)
+            throws Exception;
 }
