@@ -2,6 +2,7 @@ package jwp.controller.qna.api;
 
 import core.db.MemoryAnswerRepository;
 import core.db.MemoryQuestionRepository;
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.ModelAndView;
 import core.mvc.view.JsonView;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class AddAnswerController implements Controller {
+public class AddAnswerController extends AbstractController {
     private final MemoryAnswerRepository answerRepository = MemoryAnswerRepository.getInstance();
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
     @Override
@@ -25,8 +26,8 @@ public class AddAnswerController implements Controller {
         question.increaseCountOfAnswer();
 
         questionRepository.updateCountOfAnswer(question);
-        
-        ModelAndView mav = new ModelAndView(new JsonView());
+
+        ModelAndView mav = jsonView();
         mav.addModelElement("answer", savedAnswer);
         return mav;
     }

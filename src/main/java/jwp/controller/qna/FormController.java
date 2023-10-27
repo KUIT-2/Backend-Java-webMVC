@@ -1,5 +1,6 @@
 package jwp.controller.qna;
 
+import core.mvc.AbstractController;
 import core.mvc.Controller;
 import core.mvc.ModelAndView;
 import core.mvc.view.JspView;
@@ -9,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class FormController implements Controller {
+public class FormController extends AbstractController {
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         HttpSession session = req.getSession();
         if (UserSessionUtils.isLogined(session)) {
-            return new ModelAndView(new JspView("/qna/form.jsp"));
+            return jspView("/qna/form.jsp");
         }
-        return new ModelAndView(new JspView("redirect:/user/loginForm"));
+        return jspView("redirect:/user/loginForm");
     }
 }
