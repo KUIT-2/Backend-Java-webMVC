@@ -21,6 +21,7 @@ public class JspView implements View {
             return;
         }
 
+        //request에 model저장
         for(String key : model.keySet()) {
             request.setAttribute(key, model.get(key));
         }
