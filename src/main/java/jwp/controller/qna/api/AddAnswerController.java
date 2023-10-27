@@ -33,6 +33,6 @@ public class AddAnswerController extends AbstractController {
         questionRepository.updateCountOfAnswer(question);
 
         //페이지가 아니므로 null 반환.
-        return jsonView().addModel("answer", savedAnswer);
+        return jsonView().addModel("answers", savedAnswer);
     }
 }
