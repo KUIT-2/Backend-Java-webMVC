@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MemoryQuestionRepository {
-    private Map<String, Question> questions= new HashMap<>();
+    private final Map<String, Question> questions= new HashMap<>();
     private static MemoryQuestionRepository memoryQuestionRepository;
     private static int PK = 0;
 
