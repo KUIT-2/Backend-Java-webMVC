@@ -35,7 +35,8 @@ public class MemoryUserRepository {
 
     public void changeUserInfo(User user) {
         if (users.get(user.getUserId()) != null) {
-            users.put(user.getUserId(), user);
+            users.put(user.getUserId(), user); //동일한 key에 대해 덮어쓰기(overwrite)를 지원.
+            System.out.println("수정됨");
         }
     }
 }
