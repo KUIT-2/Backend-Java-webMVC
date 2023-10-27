@@ -1,5 +1,7 @@
 package core.mvc;
 
+import core.mvc.view.View;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,12 +27,12 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-            String viewName = controller.execute(req, resp);
+            View view = controller.execute(req, resp);
 
-            if (viewName == null) {
+            if (view == null) {
                 return;
             }
-            move(viewName, req, resp);
+            view.render(req, resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
@@ -42,7 +44,6 @@ public class DispatcherServlet extends HttpServlet {
             resp.sendRedirect(viewName.substring(REDIRECT_PREFIX.length()));
             return;
         }
-
         RequestDispatcher rd = req.getRequestDispatcher(viewName);
         rd.forward(req, resp);
     }
