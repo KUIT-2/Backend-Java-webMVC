@@ -27,9 +27,9 @@ public class AddAnswerController extends AbstractController {
 
         questionRepository.updateCountOfAnswer(question);
 
-        ModelAndView mav = jsonView();
-        mav.addModel("answer", savedAnswer);
+//        ModelAndView mav = jsonView();
+//        mav.addModel("answer", savedAnswer);
 
-        return mav;
+        return jsonView().addModel("answer", savedAnswer); //return this를 통한 chaining
     }
 }
