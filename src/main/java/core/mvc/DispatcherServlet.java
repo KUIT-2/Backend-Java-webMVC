@@ -1,5 +1,6 @@
 package core.mvc;
 
+import core.mvc.view.ModelAndView;
 import core.mvc.view.View;
 
 import javax.servlet.RequestDispatcher;
@@ -10,41 +11,53 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.apache.taglibs.standard.lang.jstl.ImplicitObjects.createParamMap;
 
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
 
     private RequestMapping requestMapping;
-    private static final String REDIRECT_PREFIX = "redirect:";
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         requestMapping = new RequestMapping();
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Controller controller = requestMapping.getController(req);
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+        Controller controller = getController(req, resp);
+        if (controller == null) return;
 
         try {
-            View view = controller.execute(req, resp);
-            if (view == null) {
-                return;
-            }
-            view.render(req,resp);
+            Map<String, String> paramMap = createParamMap(req);
+            ModelAndView view = controller.execute(paramMap);
+            view.render(req, resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
     }
 
-    private void move(String viewName, HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        if (viewName.startsWith(REDIRECT_PREFIX)) {
-            resp.sendRedirect(viewName.substring(REDIRECT_PREFIX.length()));
-            return;
+    private Controller getController(HttpServletRequest request, HttpServletResponse response) {
+        Controller controller = requestMapping.getController(request);
+        if (controller == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
         }
+        setControllerFields(request, controller);
+        return controller;
+    }
 
-        RequestDispatcher rd = req.getRequestDispatcher(viewName);
-        rd.forward(req, resp);
+    private Map<String, String> createParamMap(HttpServletRequest request) {
+        Map<String, String> paramMap = new HashMap<>();
+        request.getParameterNames().asIterator()
+                .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
+        return paramMap;
+    }
+
+    private void setControllerFields(HttpServletRequest req, Controller controller) {
+        controller.setSession(req.getSession());
     }
 }
