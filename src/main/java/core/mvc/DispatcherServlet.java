@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
@@ -28,23 +29,19 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-//            String viewName = controller.execute(req, resp);
-//
-//            if (viewName == null) {
-//                return;
-//            }
-//            move(viewName, req, resp);
+            ModelAndView modelAndView = controller.execute(req, resp);
 
-            View view = controller.execute(req, resp);
-
-            if (view == null) {
+            if (modelAndView == null) {
                 return;
             }
+
+            View view = modelAndView.getView();
+            Map<String, Object> model = modelAndView.getModel();
 
             if (view instanceof JspView) {
                 move(((JspView) view).getPath(), req, resp);
             } else if (view instanceof JsonView) {
-                view.render(null, req, resp);  // 현재 모델이 없으므로 null을 전달
+                view.render(model, req, resp);
             }
 
         } catch (Throwable e) {
