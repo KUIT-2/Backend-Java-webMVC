@@ -19,7 +19,6 @@ public class ModelAndView {
         return this;  // 메소드 체이닝을 위해 자신을 반환
     }
 
-
     public View getView() {
         return view;
     }
