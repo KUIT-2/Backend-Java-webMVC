@@ -1,5 +1,9 @@
 package core.mvc;
 
+import core.mvc.view.JsonView;
+import core.mvc.view.JspView;
+import core.mvc.view.View;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
@@ -25,12 +28,25 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-            String viewName = controller.execute(req, resp);
+//            String viewName = controller.execute(req, resp);
+//
+//            if (viewName == null) {
+//                return;
+//            }
+//            move(viewName, req, resp);
 
-            if (viewName == null) {
+            View view = controller.execute(req, resp);
+
+            if (view == null) {
                 return;
             }
-            move(viewName, req, resp);
+
+            if (view instanceof JspView) {
+                move(((JspView) view).getPath(), req, resp);
+            } else if (view instanceof JsonView) {
+                view.render(null, req, resp);  // 현재 모델이 없으므로 null을 전달
+            }
+
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
