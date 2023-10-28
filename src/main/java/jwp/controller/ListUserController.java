@@ -12,21 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/user/list")
-public class ListUserController extends HttpServlet {
+//@WebServlet("/user/list")
+public class ListUserController implements Controller {
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 세션에 저장된 정보 가져오기
+    public String excute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         if (user != null) {
-//           System.out.println(user.getUserId());
 
             req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
-            RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
-            rd.forward(req,resp);
-            return;
+//            RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
+//            rd.forward(req,resp);
+            return "/user/list.jsp";
         }
-        resp.sendRedirect("/user/login.jsp");
+//        resp.sendRedirect("/user/login.jsp");
+
+        return "/user/login.jsp";
     }
 }
