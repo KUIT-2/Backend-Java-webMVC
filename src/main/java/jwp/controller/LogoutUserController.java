@@ -1,23 +1,18 @@
 package jwp.controller;
 
-import core.db.MemoryUserRepository;
-import jwp.model.User;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ListUserController extends AbstractController{
+public class LogoutUserController extends AbstractController{
 
+
+    //세션 없애고 home으로 redirect
     @Override
     protected String doGet(HttpServletRequest req, HttpServletResponse resp){
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "/user/login";
-        }
-        req.setAttribute("users", MemoryUserRepository.getInstance().findAll());
-        return "/user/list";
+        session.removeAttribute("user");
+        return "redirect:/";
     }
 
     @Override
