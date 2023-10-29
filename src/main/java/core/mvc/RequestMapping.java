@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RequestMapping {
-    private Map<String , Controller> controllers = new HashMap<>();
+    private final Map<String , Controller> controllers = new HashMap<>();
 
     public RequestMapping() {
         initControllers();

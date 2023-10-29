@@ -2,6 +2,10 @@ package jwp.controller.qna;
 
 import core.db.MemoryQuestionRepository;
 import core.mvc.Controller;
+import core.mvc.view.JspView;
+import core.mvc.view.ModelAndView;
+import core.mvc.view.View;
+import jwp.controller.AbstractController;
 import jwp.model.Question;
 import jwp.util.UserSessionUtils;
 
@@ -10,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
-public class UpdateQuestionController implements Controller {
+public class UpdateQuestionController extends AbstractController {
     private final MemoryQuestionRepository questionRepository = MemoryQuestionRepository.getInstance();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         HttpSession session = req.getSession();
         if (!UserSessionUtils.isLogined(session)) {
-            return "redirect:/users/loginForm";
+            return jspView("redirect:/users/loginForm");
         }
 
         String questionId = req.getParameter("questionId");
@@ -30,6 +34,6 @@ public class UpdateQuestionController implements Controller {
         question.updateTitleAndContents(req.getParameter("title"),req.getParameter("contents"));
         questionRepository.update(question);
 
-        return "redirect:/";
+        return jspView("redirect:/");
     }
 }

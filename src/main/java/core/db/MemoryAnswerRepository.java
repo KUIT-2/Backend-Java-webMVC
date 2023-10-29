@@ -8,7 +8,7 @@ import java.util.*;
 
 public class MemoryAnswerRepository {
 
-    private Map<String, Answer> answers= new HashMap<>();
+    private final Map<String, Answer> answers= new HashMap<>();
     private static int PK = 0;
     private static MemoryAnswerRepository memoryAnswerRepository;
 
