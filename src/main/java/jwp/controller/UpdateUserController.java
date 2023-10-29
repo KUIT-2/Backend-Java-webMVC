@@ -12,16 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/signup")
-public class CreateUserController extends HttpServlet {
+@WebServlet("/user/update")
+public class UpdateUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User(req.getParameter(Parameters.USER_ID.getValue()),
+
+        User changedUser = new User(req.getParameter(Parameters.USER_ID.getValue()),
                 req.getParameter(Parameters.PASSWORD.getValue()),
                 req.getParameter(Parameters.NAME.getValue()),
                 req.getParameter(Parameters.EMAIL.getValue()));
 
-        MemoryUserRepository.getInstance().addUser(user);
+
+        MemoryUserRepository.getInstance().changeUserInfo(changedUser);
         resp.sendRedirect(RequestURL.USER_LIST.getUrl());
+
     }
 }
