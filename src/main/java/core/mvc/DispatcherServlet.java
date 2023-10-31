@@ -1,5 +1,8 @@
 package core.mvc;
 
+import core.mvc.view.ModelAndView;
+import core.mvc.view.View;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,12 +28,11 @@ public class DispatcherServlet extends HttpServlet {
         Controller controller = requestMapping.getController(req);
 
         try {
-            String viewName = controller.execute(req, resp);
-
-            if (viewName == null) {
+            ModelAndView modelandview = controller.execute(req, resp);
+            if (modelandview == null) {
                 return;
             }
-            move(viewName, req, resp);
+            modelandview.render(req,resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
