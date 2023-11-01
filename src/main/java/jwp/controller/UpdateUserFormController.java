@@ -1,23 +1,27 @@
 package jwp.controller;
 
 import core.db.MemoryUserRepository;
-import core.mvc.Controller;
+import core.mvc.AbstractController;
+import core.mvc.view.ModelAndView;
 import jwp.model.User;
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-
-public class UpdateUserFormController implements Controller {
-
+public class UpdateUserFormController extends AbstractController {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        String userId = req.getParameter("userId");
+    public ModelAndView execute(Map<String, String> params) throws Exception {
+        String userId = params.get("userId");
         User user = MemoryUserRepository.getInstance().findUserById(userId);
         if (user != null) {
-            req.setAttribute("user",user);
-            return "/user/updateForm.jsp";
+            return jspView("/user/updateForm.jsp").addData("user", user);
         }
-        return "redirect:/";
+        return jspView("redirect:/");
     }
+
+    @Override
+    public void setSession(HttpSession session) {
+        super.setSession(session);
+    }
+
 }
