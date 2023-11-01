@@ -1,5 +1,9 @@
 package core.mvc.view;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,5 +30,8 @@ public class ModelAndView {
     public ModelAndView addData(String key, Object value) {
         model.put(key, value);
         return this;
+    }
+    public void render(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        view.render(model,request, response);
     }
 }

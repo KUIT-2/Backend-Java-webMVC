@@ -32,8 +32,7 @@ public class DispatcherServlet extends HttpServlet {
         Map<String, String> params = getParams(req);    // request에서 파라미터 전부 가져와서 map에 담아줌
         try {
             ModelAndView mav = controller.execute(params);
-            View view = mav.getView();
-            view.render(mav.getModel(),req,resp);
+            mav.render(req,resp);
         } catch (Throwable e) {
             throw new ServletException(e.getMessage());
         }
